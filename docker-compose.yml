@@ -1,6 +1,7 @@
+# References: https://gist.github.com/michaelneu/2ca7987ef00fa3fbe4fd7b9c07834cc7
 nginx:
   image: "nginx:latest"
-  container_name: nginx
+  container_name: 2020-datathon
   volumes:
     - $PWD:/code
     - $PWD/nginx.conf:/etc/nginx/conf.d/default.conf
