@@ -1,0 +1,5 @@
+function getLeafletToken() {
+    return {
+        'token': 'your.leaflet.token',
+    };
+}
