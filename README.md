@@ -2,8 +2,6 @@
 
 ## Installation
 
-## Usage
-
 Here are the steps to configure and setup `2020-datathon` website
 
 - Using the `cp js/config.js.sample js/config.js` to copy a `config.js` file.
