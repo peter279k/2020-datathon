@@ -8,10 +8,6 @@
   padding-right: 40px;
 }
 
-.pie-chart {
-  height: 150px;
-}
-
 .dc-chart .axis text{
   font-size: 12px;
 }
@@ -21,7 +17,7 @@ text {
 }
 
 #map {
-  height: 150px;
+  height: 500px;
 }
 
 #control-row {

@@ -4,7 +4,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>2020數據松 - Improved Invoice Data Filter Page</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/dc.css">
     <link rel="stylesheet" href="css/leaflet.css">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
@@ -13,19 +12,13 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-12 dc-data-count dc-chart" id="data-count">
-      <h2>Beer History
+      <h2>快篩專家
         <small>
-          <span class="filter-count"></span> selected out of <span class="total-count"></span> records |
-           <a id="all" href="#">Reset All</a>
+          <span class="filter-count"></span> 快篩專家開發團隊 <span class="total-count"></span> 製作
+           <a id="all" href="#">重設篩選條件</a>
           </span>
         </small>
       </h2>
-    </div>
-  </div>
-  <div class="row" id="control-row">
-    <div class="col-xs-12 mh-100">
-      <h4>Breweries</h4>
-      <div id="map"></div>
     </div>
   </div>
   <div class="row">
@@ -45,6 +38,12 @@
       </table>
     </div>
   </div>
+  <div class="row" id="control-row">
+    <div class="col-xs-12 mh-100">
+      <h4>篩選後之地理資訊</h4>
+      <div id="map"></div>
+    </div>
+  </div>
 </div>
 <script src="js/config.js"></script>
 <script src="js/leaflet.js"></script>
@@ -60,7 +59,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   tileSize: 512,
   zoomOffset: -1,
   accessToken: accessToken['token'],
-  maxZoom: 18,
+  maxZoom: 20,
 } ).addTo(map);
 
 L.marker(L.latLng(25.105497, 121.597366)).addTo(map);
