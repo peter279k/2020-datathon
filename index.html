@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/leaflet.css">
     <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/datatables.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -23,6 +24,20 @@
   </div>
   <div class="row">
     <div class="col-xs-12">
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="email">Email address:</label>
+            <input type="email" class="form-control" id="email">
+        </div>
+        <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" id="pwd">
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox"> Remember me</label>
+        </div>
+        <button type="button" class="btn btn-success">送出</button>
+    </form>
       <table class="table table-bordered table-striped" id="data-table">
         <thead>
           <tr class="header">
@@ -45,9 +60,25 @@
     </div>
   </div>
 </div>
+<script src="js/jquery.js"></script>
 <script src="js/config.js"></script>
 <script src="js/leaflet.js"></script>
+<script src="js/datatables.js"></script>
 <script>
+
+$(function() {
+    $('#data-table').DataTable({
+        "language": {
+            "lengthMenu": "",
+            "zeroRecords": "抱歉! 沒有找到任何資料",
+            "info": "目前是第_PAGE_頁, 共_PAGES_頁",
+            "infoEmpty": "目前沒有任何的資料!",
+            "infoFiltered": "(從_MAX_筆資料中進行篩選)",
+            "search": "",
+        },
+        "sDom": "lrtip",
+    });
+});
 
 /* instantiate and configure map */
 var map = L.map('map').setView(L.latLng(25.105497, 121.597366), 13);
