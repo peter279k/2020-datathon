@@ -68,7 +68,6 @@
 
 $(function() {
   $.get('./datathon2020.csv', function(response) {
-    console.log(response);
     let csvStrings = response.split("\n");
     let csvHeads = csvStrings[0];
     let csvRows = [];
@@ -83,6 +82,8 @@ $(function() {
       csvRows.push(csvRow);
       csvRow = {};
     }
+
+    console.log(csvRows);
 
     let dataTable = $('#data-table').DataTable({
         "language": {
