@@ -21,11 +21,16 @@ jobs:
         source: "."
         target: "/var/www/2020datathon.peterli.website/html"
 
-    - name: Executing remote command
+    - name: Executing remote command to create the Leaflet map token and copy sample data sets
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
         USERNAME: ${{ secrets.USERNAME }}
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
-        script: cd /var/www/2020datathon.peterli.website/html/ && ls
+        LEAFLET_TOKEN: ${{ secrets.LEAFLET_TOKEN }}
+        script:
+            - cd /var/www/2020datathon.peterli.website/html/js/
+            - cp config.js.sample config.js
+            - sed -i -e "s/your.leaflet.token/$LEAFLET_TOKEN/g" config.js
+            - cp $HOME/datathon2020.csv /var/www/2020datathon.peterli.website/html/
