@@ -68,6 +68,7 @@
 
 $(function() {
   $.get('./datathon2020.csv', function(response) {
+    console.log(response);
     let csvStrings = response.split("\n");
     let csvHeads = csvStrings[0];
     let csvRows = [];
