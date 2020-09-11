@@ -30,7 +30,4 @@ jobs:
         KEY: ${{ secrets.SSHKEY }}
         LEAFLET_TOKEN: ${{ secrets.LEAFLET_TOKEN }}
         script:
-            - cd /var/www/2020datathon.peterli.website/html/js/
-            - cp config.js.sample config.js
-            - sed -i -e "s/your.leaflet.token/$LEAFLET_TOKEN/g" config.js
-            - cp $HOME/datathon2020.csv /var/www/2020datathon.peterli.website/html/
+            - cd /var/www/2020datathon.peterli.website/html/js/ && cp config.js.sample config.js && sed -i -e "s/your.leaflet.token/$LEAFLET_TOKEN/g" config.js && cp $HOME/datathon2020.csv /var/www/2020datathon.peterli.website/html/
