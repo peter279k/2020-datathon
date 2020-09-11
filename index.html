@@ -67,7 +67,23 @@
 <script>
 
 $(function() {
-    $('#data-table').DataTable({
+  $.get('./datathon2020.csv', function(response) {
+    let csvStrings = response.split("\n");
+    let csvHeads = csvStrings[0];
+    let csvRows = [];
+    let index = 0;
+    let csvRow = {};
+
+    for (csvStringsKey in csvStrings) {
+      let csvStringArray = csvStrings[csvStringsKey].split(',');
+      for (index=0; index<csvStringArray.length; index++) {
+        csvRow[csvHeads[index]] = csvStringArray[index];
+      }
+      csvRows.push(csvRow);
+      csvRow = {};
+    }
+
+    let dataTable = $('#data-table').DataTable({
         "language": {
             "lengthMenu": "",
             "zeroRecords": "抱歉! 沒有找到任何資料",
@@ -78,6 +94,9 @@ $(function() {
         },
         "sDom": "lrtip",
     });
+
+    dataTable.rows.add(csvRows).draw();
+  });
 });
 
 /* instantiate and configure map */
