@@ -70,7 +70,7 @@ $(function() {
   $.get('./datathon2020.csv', function(response) {
     let csvStrings = response.split("\n");
     let csvHeads = csvStrings[0].split(',');
-    let csvStrings = csvStrings.slice(1);
+    csvStrings = csvStrings.slice(1);
     let csvRows = [];
     let index = 0;
     let csvRow = {};
