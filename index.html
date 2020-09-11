@@ -62,16 +62,20 @@ $(function() {
   $.get('./datathon2020.csv', function(response) {
     let csvStrings = response.split("\n");
     let csvHeads = csvStrings[0].split(',');
+
+    for (let csvHeadsKey in csvHeads) {
+      $('tr.header').append('<th>' + csvHeads[csvHeadsKey] + '</th>');
+    }
+
     csvStrings = csvStrings.slice(1);
     let csvRows = [];
     let index = 0;
     let csvRow = {};
 
-    for (csvStringsKey in csvStrings) {
+    for (let csvStringsKey in csvStrings) {
       let csvStringArray = csvStrings[csvStringsKey].split(',');
       for (index=1; index<csvStringArray.length; index++) {
         csvRow[csvHeads[index]] = (csvStringArray[index] === '' ? 'None' : csvStringArray[index]);
-        $('tr.header').append('<th>' + csvHeads[index] + '</th>');
       }
       csvRows.push(csvRow);
       csvRow = {};
