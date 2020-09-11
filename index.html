@@ -79,18 +79,15 @@ $(function() {
 
     console.log(csvRows);
 
-    let dataTable = $('#data-table').removeAttr('width').DataTable({
-        "scrollY": true,
+    let dataTable = $('#data-table').DataTable({
+        "scrollY": "300px",
         "scrollX": true,
         "scrollCollapse": true,
         "paging": false,
-        "columnDefs": [
-            {
-              "width": 200,
-              "targets": 0,
-            },
-        ],
-        "fixedColumns": true,
+        "fixedColumns": {
+          "leftColumns": 1,
+          "rightColumns": 1,
+        },
         "language": {
             "lengthMenu": "",
             "zeroRecords": "抱歉! 沒有找到任何資料",
