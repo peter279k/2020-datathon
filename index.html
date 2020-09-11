@@ -40,15 +40,7 @@
     </form>
       <table class="table table-bordered table-striped" id="data-table">
         <thead>
-          <tr class="header">
-            <th>Brewery</th>
-            <th>Beer</th>
-            <th>Style</th>
-            <th>My Rating</th>
-            <th>Community Rating</th>
-            <th>ABV %</th>
-            <th>IBU</th>
-          </tr>
+          <tr class="header"></tr>
         </thead>
       </table>
     </div>
@@ -67,7 +59,49 @@
 <script>
 
 $(function() {
-    $('#data-table').DataTable({
+  $.get('./datathon2020.csv', function(response) {
+    let csvStrings = response.split("\n");
+    let csvHeads = csvStrings[0].split(',');
+
+    for (let csvHeadsKey in csvHeads) {
+      $('tr.header').append('<th>' + csvHeads[csvHeadsKey] + '</th>');
+    }
+
+    csvStrings = csvStrings.slice(1);
+    let csvRows = [];
+    let index = 0;
+    let csvRow = [];
+
+    for (let csvStringsKey in csvStrings) {
+      let csvStringArray = csvStrings[csvStringsKey].split(',');
+      for (index=0; index<csvStringArray.length; index++) {
+        csvRow.push(csvStringArray[index]);
+      }
+
+      csvRows.push(csvRow);
+      csvRow = [];
+    }
+
+    console.log(csvRows);
+
+    let dataTable = $('#data-table').DataTable({
+        "scrollY": "300px",
+        "scrollX": true,
+        "scrollCollapse": true,
+        "paging": false,
+        "bPaginate": false,
+        "ordering": false,
+        "info":     false,
+        "fixedColumns": {
+          "leftColumns": 1,
+          "rightColumns": 1,
+        },
+        "columnDefs": [
+          {
+            "orderable": false,
+            "targets": 0,
+          },
+        ],
         "language": {
             "lengthMenu": "",
             "zeroRecords": "抱歉! 沒有找到任何資料",
@@ -78,6 +112,9 @@ $(function() {
         },
         "sDom": "lrtip",
     });
+
+    dataTable.rows.add(csvRows).draw();
+  });
 });
 
 /* instantiate and configure map */
