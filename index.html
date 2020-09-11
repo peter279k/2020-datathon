@@ -81,8 +81,14 @@ $(function() {
 });
 
 /* instantiate and configure map */
-var map = L.map('map').setView(L.latLng(25.105497, 121.597366), 13);
+var minZoom = 10;
+var maxZoom = 30;
+var map = L.map('map').setView(L.latLng(25.105497, 121.597366), minZoom);
 var accessToken = getLeafletToken();
+
+if (!accessToken) {
+    console.log('Access token is required');
+}
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery  <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -90,8 +96,9 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   tileSize: 512,
   zoomOffset: -1,
   accessToken: accessToken['token'],
-  maxZoom: 20,
-} ).addTo(map);
+  minZoom: minZoom,
+  maxZoom: maxZoom,
+}).addTo(map);
 
 L.marker(L.latLng(25.105497, 121.597366)).addTo(map);
 

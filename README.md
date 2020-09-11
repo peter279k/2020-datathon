@@ -10,7 +10,7 @@ Here are the steps to configure and setup `2020-datathon` website
 
 ## Demo
 
-- Using the `docker-compose up -d` to let this website running as a Docker container on current operating system.
+- Using the `docker-compose up -d` to let this website run as a Docker container on current operating system background.
 
 ## Slide
 

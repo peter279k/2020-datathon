@@ -3,7 +3,7 @@ nginx:
   image: "nginx:latest"
   container_name: 2020-datathon
   volumes:
-    - $PWD:/code
+    - $PWD:/code:ro
     - $PWD/nginx.conf:/etc/nginx/conf.d/default.conf
     - $PWD/log:/var/log/nginx/
   ports:
