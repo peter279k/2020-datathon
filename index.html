@@ -40,15 +40,7 @@
     </form>
       <table class="table table-bordered table-striped" id="data-table">
         <thead>
-          <tr class="header">
-            <th>Brewery</th>
-            <th>Beer</th>
-            <th>Style</th>
-            <th>My Rating</th>
-            <th>Community Rating</th>
-            <th>ABV %</th>
-            <th>IBU</th>
-          </tr>
+          <tr class="header"></tr>
         </thead>
       </table>
     </div>
@@ -79,6 +71,7 @@ $(function() {
       let csvStringArray = csvStrings[csvStringsKey].split(',');
       for (index=1; index<csvStringArray.length; index++) {
         csvRow[csvHeads[index]] = csvStringArray[index];
+        $('tr.header').append('<th>' + csvHeads[index] + '</th>');
       }
       csvRows.push(csvRow);
       csvRow = {};
