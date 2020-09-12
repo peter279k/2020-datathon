@@ -176,6 +176,19 @@ $(function() {
     }
 
     filteredTable.draw();
+
+    let filteredDataSets = filteredTable.data();
+
+    console.log(filteredDataSets);
+
+    if (filteredDataSets.length !== 0) {
+      map.panTo(new L.latLng(filteredDataSets[0][13], filteredDataSets[0][12]), minZoom);
+      for (let filteredDataSetsKey in filteredDataSets) {
+        L.marker(L.latLng(filteredDataSets[filteredDataSetsKey][13], filteredDataSets[filteredDataSetsKey][12])).addTo(map);
+      }
+    } else {
+      map.panTo(new L.latLng(initLat, initLng), minZoom);
+    }
   });
 
   $('#reset-filter').click(function (e) {
@@ -186,9 +199,11 @@ $(function() {
 });
 
 /* instantiate and configure map */
-var minZoom = 10;
+var minZoom = 5;
 var maxZoom = 30;
-var map = L.map('map').setView(L.latLng(25.105497, 121.597366), minZoom);
+var initLat = 25.105497;
+var initLng = 121.597366;
+var map = L.map('map').setView(L.latLng(initLat, initLng), minZoom);
 var accessToken = getLeafletToken();
 
 if (!accessToken) {
@@ -204,8 +219,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   minZoom: minZoom,
   maxZoom: maxZoom,
 }).addTo(map);
-
-L.marker(L.latLng(25.105497, 121.597366)).addTo(map);
 
 </script>
 </body>
