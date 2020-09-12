@@ -181,9 +181,9 @@ $(function() {
       }
     }
 
-    filteredTable.draw();
+    filteredTable = filteredTable.draw();
 
-    let filteredDataSets = filteredTable.cache('search').toArray();
+    let filteredDataSets = filteredTable.rows().data().toArray();
 
     console.log(filteredDataSets.length);
 
