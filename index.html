@@ -177,7 +177,7 @@ $(function() {
 
     filteredTable.draw();
 
-    let filteredDataSets = filteredTable.data().toArray();
+    let filteredDataSets = filteredTable.rows().data().toArray();
 
     console.log(filteredDataSets);
 
@@ -199,7 +199,7 @@ $(function() {
 });
 
 /* instantiate and configure map */
-var minZoom = 5;
+var minZoom = 7;
 var maxZoom = 30;
 var initLat = 25.105497;
 var initLng = 121.597366;
