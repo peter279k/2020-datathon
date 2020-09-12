@@ -187,11 +187,10 @@ $(function() {
 
     console.log(filteredDataSets.length);
 
+    map.remove();
+
     if (filteredDataSets.length !== 0) {
       map = L.map('map').setView(L.latLng(filteredDataSets[0][13], filteredDataSets[0][12]), minZoom);
-      map.eachLayer(function (layer) {
-        layer.remove();
-      });
 
       for (let filteredDataSetsKey in filteredDataSets) {
         L.marker(L.latLng(filteredDataSets[filteredDataSetsKey][13], filteredDataSets[filteredDataSetsKey][12])).addTo(map);
