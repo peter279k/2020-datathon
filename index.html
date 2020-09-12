@@ -208,6 +208,7 @@ $(function() {
     dataTable.search('').columns().search('').draw();
 
     if (map) {
+      map.invalidateSize();
       map.eachLayer(function (layer) {
         layer.remove();
       });
