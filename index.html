@@ -158,11 +158,11 @@ $(function() {
       dataTable.columns(10).search(county).draw();
     }
 
-    if (town === '') {
+    if (town !== '') {
       dataTable.columns(11).search(town).draw();
     }
 
-    if (industry === ''){
+    if (industry !== ''){
       dataTable.columns(14).search(industry).draw();
     }
   });
