@@ -183,6 +183,7 @@ $(function() {
 
     if (map) {
       map.removeLayer(markers);
+      markers = new L.FeatureGroup();
     }
 
     let invoiceNumbers = [];
@@ -211,6 +212,7 @@ $(function() {
 
     if (map) {
       map.removeLayer(markers);
+      markers = new L.FeatureGroup();
     }
   });
 });
