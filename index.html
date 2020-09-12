@@ -65,9 +65,9 @@ $(function() {
   $.get('./datathon2020.csv', function(response) {
     let csvStrings = response.split("\n");
     let csvHeads = csvStrings[0].split(',');
-    let counties = '<option></option>';
-    let towns = '<option></option>';
-    let industries = '<option></option>';
+    let counties = '<option value="">請選擇縣市</option>';
+    let towns = '<option value="">請選擇鄉鎮市區</option>';
+    let industries = '<option value="">請選擇行業別</option>';
 
     for (let csvHeadsKey in csvHeads) {
       $('tr.header').append('<th>' + csvHeads[csvHeadsKey] + '</th>');
@@ -85,17 +85,17 @@ $(function() {
         if (csvStringArray[index].length !== 0) {
           if (index === 10) {
             if (counties.indexOf(csvStringArray[index]) === -1) {
-              counties += '<option>' + csvStringArray[index] + '</option>';
+              counties += '<option value="'+ csvStringArray[index] + '">' + csvStringArray[index] + '</option>';
             }
           }
           if (index === 11) {
             if (towns.indexOf(csvStringArray[index]) === -1) {
-              towns += '<option>' + csvStringArray[index] + '</option>';
+              towns += '<option value="' + csvStringArray[index] + '">' + csvStringArray[index] + '</option>';
             }
           }
           if (index === 14) {
             if (industries.indexOf(csvStringArray[index]) === -1) {
-              industries += '<option>' + csvStringArray[index] + '</option>';
+              industries += '<option value="' + csvStringArray[index] + '">' + csvStringArray[index] + '</option>';
             }
           }
         }
@@ -146,17 +146,25 @@ $(function() {
   $('#submit-search').click(function (e) {
     e.preventDefault = false;
 
-    let county = $('#county').text();
-    let town = $('#town').text();
-    let industry = $('#industry').text();
+    let county = $('#county').val();
+    let town = $('#town').val();
+    let industry = $('#industry').val();
 
     console.log(county);
     console.log(town);
     console.log(industry);
 
-    dataTable.columns(10).search(county).draw();
-//    dataTable.columns(11).search(town).draw();
-//    dataTable.columns(14).search(industry).draw();
+    if (county !== '') {
+      dataTable.columns(10).search(county).draw();
+    }
+
+    if (town === '') {
+      dataTable.columns(11).search(town).draw();
+    }
+
+    if (industry === ''){
+      dataTable.columns(14).search(industry).draw();
+    }
   });
 
   $('#reset-filter').click(function (e) {
