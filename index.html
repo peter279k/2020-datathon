@@ -16,7 +16,7 @@
       <h2>快篩專家
         <small>
           <span class="filter-count"></span> 快篩專家開發團隊 <span class="total-count"></span> 製作
-           <a id="all" href="#">重設篩選條件</a>
+           <a id="reset-filter" href="#">重設篩選條件</a>
           </span>
         </small>
       </h2>
@@ -65,9 +65,9 @@ $(function() {
   $.get('./datathon2020.csv', function(response) {
     let csvStrings = response.split("\n");
     let csvHeads = csvStrings[0].split(',');
-    let counties = '';
-    let towns = '';
-    let industries = '';
+    let counties = '<option></option>';
+    let towns = '<option></option>';
+    let industries = '<option></option>';
 
     for (let csvHeadsKey in csvHeads) {
       $('tr.header').append('<th>' + csvHeads[csvHeadsKey] + '</th>');
@@ -151,8 +151,14 @@ $(function() {
     let industry = $('#industry').text();
 
     dataTable.columns(10).search(county).draw();
-    dataTable.columns(11).search(town).draw();
-    dataTable.columns(14).search(industry).draw();
+//    dataTable.columns(11).search(town).draw();
+//    dataTable.columns(14).search(industry).draw();
+  });
+
+  $('#reset-filter').click(function (e) {
+    e.preventDefault = false;
+
+    dataTable.search('').columns().search('').draw();
   });
 });
 
