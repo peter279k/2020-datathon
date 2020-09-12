@@ -112,32 +112,32 @@ $(function() {
     $('#industry').html(industries);
 
     dataTable = $('#data-table').DataTable({
-        "scrollY": "300px",
-        "scrollX": true,
-        "scrollCollapse": true,
-        "paging": false,
-        "bPaginate": false,
-        "ordering": false,
-        "info":     false,
-        "fixedColumns": {
-          "leftColumns": 1,
-          "rightColumns": 1,
+        scrollY: "300px",
+        scrollX: true,
+        scrollCollapse: true,
+        paging: false,
+        bPaginate: false,
+        ordering: false,
+        info: false,
+        fixedColumns: {
+          leftColumns: 1,
+          rightColumns: 1,
         },
-        "columnDefs": [
+        columnDefs: [
           {
-            "orderable": false,
-            "targets": 0,
+            orderable: false,
+            targets: 0,
           },
         ],
-        "language": {
-            "lengthMenu": "",
-            "zeroRecords": "抱歉! 沒有找到任何資料",
-            "info": "目前是第_PAGE_頁, 共_PAGES_頁",
-            "infoEmpty": "目前沒有任何的資料!",
-            "infoFiltered": "(從_MAX_筆資料中進行篩選)",
-            "search": "",
+        language: {
+            lengthMenu: "",
+            zeroRecords: "抱歉! 沒有找到任何資料",
+            info: "目前是第_PAGE_頁, 共_PAGES_頁",
+            infoEmpty: "目前沒有任何的資料!",
+            infoFiltered: "(從_MAX_筆資料中進行篩選)",
+            search: "",
         },
-        "sDom": "lrtip",
+        sDom: "lrtip",
     });
 
     dataTable.rows.add(csvRows).draw();
@@ -183,7 +183,7 @@ $(function() {
 
     filteredTable = filteredTable.draw();
 
-    let filteredDataSets = filteredTable.rows().data().toArray();
+    let filteredDataSets = filteredTable.rows({ search: 'applied' }).data().toArray();
 
     console.log(filteredDataSets.length);
 
