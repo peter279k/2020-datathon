@@ -109,7 +109,7 @@ $(function() {
     $('#town').html(towns);
     $('#industry').html(industries);
 
-    let dataTable = $('#data-table').DataTable({
+    var dataTable = $('#data-table').DataTable({
         "scrollY": "300px",
         "scrollX": true,
         "scrollCollapse": true,
@@ -139,6 +139,18 @@ $(function() {
     });
 
     dataTable.rows.add(csvRows).draw();
+  });
+
+  $('#submit-search').click(function (e) {
+    e.preventDefault = false;
+
+    let county = $('#county').text();
+    let town = $('#town').text();
+    let industry = $('#industry').text();
+
+    dataTable.columns(10).search(county).draw();
+    dataTable.columns(11).search(town).draw();
+    dataTable.columns(14).search(industry).draw();
   });
 });
 
