@@ -154,17 +154,28 @@ $(function() {
     console.log(town);
     console.log(industry);
 
+    var filteredTable;
     if (county !== '') {
-      dataTable.columns(10).search(county).draw();
+      filteredTable = dataTable.columns(10).search(county);
     }
 
     if (town !== '') {
-      dataTable.columns(11).search(town).draw();
+      if (!filteredTable) {
+        filteredTable = dataTable.columns(11).search(town);
+      } else {
+        filteredTable = filteredTable.columns(11).search(town);
+      }
     }
 
-    if (industry !== ''){
-      dataTable.columns(14).search(industry).draw();
+    if (industry !== '') {
+      if (!filteredTable) {
+        filteredTable = dataTable.columns(14).search(industry);
+      } else {
+        filteredTable = filteredTable.columns(14).search(industry);
+      }
     }
+
+    filteredTable.draw();
   });
 
   $('#reset-filter').click(function (e) {
