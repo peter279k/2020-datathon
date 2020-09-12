@@ -190,15 +190,11 @@ $(function() {
     map.eachLayer(function (layer) {
       layer.remove();
     });
-    map.remove();
-    if (filteredDataSets.length !== 0) {
-      map = L.map('map').panto(L.latLng(filteredDataSets[0][13], filteredDataSets[0][12]), minZoom);
 
+    if (filteredDataSets.length !== 0) {
       for (let filteredDataSetsKey in filteredDataSets) {
         L.marker(L.latLng(filteredDataSets[filteredDataSetsKey][13], filteredDataSets[filteredDataSetsKey][12])).addTo(map);
       }
-    } else {
-      map = L.map('map').panto(L.latLng(initLat, initLng), minZoom);
     }
   });
 
@@ -208,11 +204,9 @@ $(function() {
     dataTable.search('').columns().search('').draw();
 
     if (map) {
-      map.invalidateSize();
       map.eachLayer(function (layer) {
         layer.remove();
       });
-      map = L.map('map').panto(L.latLng(initLat, initLng), minZoom);
     }
   });
 });
