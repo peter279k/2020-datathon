@@ -48,7 +48,7 @@
   </div>
   <div class="row" id="control-row">
     <div class="col-xs-12 mh-100">
-      <h4>篩選後之地理資訊</h4>
+      <h3 class="text-success">篩選後之地理資訊</h3><h3 id="filtered-message"></h3>
       <div id="map"></div>
     </div>
   </div>
@@ -112,32 +112,32 @@ $(function() {
     $('#industry').html(industries);
 
     dataTable = $('#data-table').DataTable({
-        "scrollY": "300px",
-        "scrollX": true,
-        "scrollCollapse": true,
-        "paging": false,
-        "bPaginate": false,
-        "ordering": false,
-        "info":     false,
-        "fixedColumns": {
-          "leftColumns": 1,
-          "rightColumns": 1,
+        scrollY: "300px",
+        scrollX: true,
+        scrollCollapse: true,
+        paging: false,
+        bPaginate: false,
+        ordering: false,
+        info: false,
+        fixedColumns: {
+          leftColumns: 1,
+          rightColumns: 1,
         },
-        "columnDefs": [
+        columnDefs: [
           {
-            "orderable": false,
-            "targets": 0,
+            orderable: false,
+            targets: 0,
           },
         ],
-        "language": {
-            "lengthMenu": "",
-            "zeroRecords": "抱歉! 沒有找到任何資料",
-            "info": "目前是第_PAGE_頁, 共_PAGES_頁",
-            "infoEmpty": "目前沒有任何的資料!",
-            "infoFiltered": "(從_MAX_筆資料中進行篩選)",
-            "search": "",
+        language: {
+            lengthMenu: "",
+            zeroRecords: "抱歉! 沒有找到任何資料",
+            info: "目前是第_PAGE_頁, 共_PAGES_頁",
+            infoEmpty: "目前沒有任何的資料!",
+            infoFiltered: "(從_MAX_筆資料中進行篩選)",
+            search: "",
         },
-        "sDom": "lrtip",
+        sDom: "lrtip",
     });
 
     dataTable.rows.add(csvRows).draw();
@@ -150,9 +150,11 @@ $(function() {
     let town = $('#town').val();
     let industry = $('#industry').val();
 
-    console.log(county);
-    console.log(town);
-    console.log(industry);
+    if (county === '' && town === '' && industry === '') {
+      alert('請至少選擇一項條件進行篩選！');
+
+      return false;
+    }
 
     var filteredTable;
     if (county !== '') {
@@ -175,20 +177,58 @@ $(function() {
       }
     }
 
-    filteredTable.draw();
+    filteredTable = filteredTable.draw();
+
+    let filteredDataSets = filteredTable.rows({ search: 'applied' }).data().toArray();
+
+    if (map) {
+      map.removeLayer(markers);
+      markers = new L.FeatureGroup();
+    }
+
+    let invoiceNumbers = [];
+    if (filteredDataSets.length !== 0) {
+      for (let filteredDataSetsKey in filteredDataSets) {
+        if (invoiceNumbers.indexOf(filteredDataSets[filteredDataSetsKey][0]) !== -1) {
+          continue;
+        }
+        invoiceNumbers.push(filteredDataSets[filteredDataSetsKey][0]);
+
+        var marker = L.marker(L.latLng(filteredDataSets[filteredDataSetsKey][13], filteredDataSets[filteredDataSetsKey][12]));
+
+        marker.bindPopup(filteredDataSets[filteredDataSetsKey][6], {
+          showOnMouseOver: true
+        });
+
+        markers.addLayer(marker);
+      }
+    }
+
+    $('#filtered-message').html('篩選出的筆數有：' + filteredDataSets.length + '，' + '依照發票流水號整理筆數有：' + invoiceNumbers.length);
+
+    map.addLayer(markers);
   });
 
   $('#reset-filter').click(function (e) {
     e.preventDefault = false;
 
     dataTable.search('').columns().search('').draw();
+    $('#filtered-message').html('');
+
+    if (map) {
+      map.removeLayer(markers);
+      markers = new L.FeatureGroup();
+    }
   });
 });
 
 /* instantiate and configure map */
-var minZoom = 10;
+var markers = new L.FeatureGroup();
+var minZoom = 7;
 var maxZoom = 30;
-var map = L.map('map').setView(L.latLng(25.105497, 121.597366), minZoom);
+var initLat = 25.105497;
+var initLng = 121.597366;
+var map = L.map('map').setView(L.latLng(initLat, initLng), minZoom);
 var accessToken = getLeafletToken();
 
 if (!accessToken) {
@@ -204,8 +244,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   minZoom: minZoom,
   maxZoom: maxZoom,
 }).addTo(map);
-
-L.marker(L.latLng(25.105497, 121.597366)).addTo(map);
 
 </script>
 </body>
