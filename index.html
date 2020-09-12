@@ -26,17 +26,18 @@
     <div class="col-xs-12">
     <form class="form-inline">
         <div class="form-group">
-            <label for="email">Email address:</label>
-            <input type="email" class="form-control" id="email">
+            <label for="county">請選擇縣市:</label>
+            <select class="form-control" id="county"><s/select>
         </div>
         <div class="form-group">
-            <label for="pwd">Password:</label>
-            <input type="password" class="form-control" id="pwd">
+            <label for="town">請選擇鄉鎮市區:</label>
+            <select class="form-control" id="town"></select>
         </div>
-        <div class="checkbox">
-            <label><input type="checkbox"> Remember me</label>
+        <div class="form-group">
+            <label for="industry">請選擇行業別:</label>
+            <select class="form-control" id="industry"></select>
         </div>
-        <button type="button" class="btn btn-success">送出</button>
+        <button id="submit-search" type="button" class="btn btn-success">送出</button>
     </form>
       <table class="table table-bordered table-striped" id="data-table">
         <thead>
@@ -62,6 +63,9 @@ $(function() {
   $.get('./datathon2020.csv', function(response) {
     let csvStrings = response.split("\n");
     let csvHeads = csvStrings[0].split(',');
+    let counties = '';
+    let towns = '';
+    let industries = '';
 
     for (let csvHeadsKey in csvHeads) {
       $('tr.header').append('<th>' + csvHeads[csvHeadsKey] + '</th>');
@@ -75,6 +79,25 @@ $(function() {
     for (let csvStringsKey in csvStrings) {
       let csvStringArray = csvStrings[csvStringsKey].split(',');
       for (index=0; index<csvStringArray.length; index++) {
+
+        if (csvStringArray[index].length !== 0) {
+          if (index === 10) {
+            if (counties.indexOf(csvStringArray[index]) === -1) {
+              counties += '<option>' + csvStringArray[index] + '</option>';
+            }
+          }
+          if (index === 11) {
+            if (towns.indexOf(csvStringArray[index]) === -1) {
+              towns += '<option>' + csvStringArray[index] + '</option>';
+            }
+          }
+          if (index === 14) {
+            if (industries.indexOf(csvStringArray[index]) === -1) {
+              industries += '<option>' + csvStringArray[index] + '</option>';
+            }
+          }
+        }
+
         csvRow.push(csvStringArray[index]);
       }
 
@@ -82,7 +105,9 @@ $(function() {
       csvRow = [];
     }
 
-    console.log(csvRows);
+    $('#county').html(counties);
+    $('#town').html(towns);
+    $('#industry').html(industries);
 
     let dataTable = $('#data-table').DataTable({
         "scrollY": "300px",
