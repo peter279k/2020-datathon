@@ -59,6 +59,8 @@
 <script src="js/datatables.js"></script>
 <script>
 
+var dataTable;
+
 $(function() {
   $.get('./datathon2020.csv', function(response) {
     let csvStrings = response.split("\n");
@@ -109,7 +111,7 @@ $(function() {
     $('#town').html(towns);
     $('#industry').html(industries);
 
-    var dataTable = $('#data-table').DataTable({
+    dataTable = $('#data-table').DataTable({
         "scrollY": "300px",
         "scrollX": true,
         "scrollCollapse": true,
