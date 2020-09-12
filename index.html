@@ -48,7 +48,7 @@
   </div>
   <div class="row" id="control-row">
     <div class="col-xs-12 mh-100">
-      <h4>篩選後之地理資訊</h4>
+      <h3 class="text-success">篩選後之地理資訊</h3><h3 id="filtered-message"></h3>
       <div id="map"></div>
     </div>
   </div>
@@ -181,18 +181,22 @@ $(function() {
 
     let filteredDataSets = filteredTable.rows({ search: 'applied' }).data().toArray();
 
-    console.log(filteredDataSets.length);
-
     if (map) {
       map.removeLayer(markers);
     }
 
+    let invoiceNumbers = [];
     if (filteredDataSets.length !== 0) {
       for (let filteredDataSetsKey in filteredDataSets) {
+        if (invoiceNumbers.indexOf(filteredDataSets[filteredDataSetsKey][0]) !== -1) {
+          continue;
+        }
         var marker = L.marker(L.latLng(filteredDataSets[filteredDataSetsKey][13], filteredDataSets[filteredDataSetsKey][12]));
         markers.addLayer(marker);
       }
     }
+
+    $('#filtered-message').html('篩選出的筆數有：' + filteredDataSets.length + '，' + '依照發票流水號整理筆數有：' + invoiceNumbers.length);
 
     map.addLayer(markers);
   });
@@ -201,6 +205,7 @@ $(function() {
     e.preventDefault = false;
 
     dataTable.search('').columns().search('').draw();
+    $('#filtered-message').html('');
 
     if (map) {
       map.removeLayer(markers);
