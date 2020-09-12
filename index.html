@@ -188,7 +188,9 @@ $(function() {
     console.log(filteredDataSets.length);
 
     map.remove();
-
+    map.eachLayer(function (layer) {
+      layer.remove();
+    });
     if (filteredDataSets.length !== 0) {
       map = L.map('map').setView(L.latLng(filteredDataSets[0][13], filteredDataSets[0][12]), minZoom);
 
