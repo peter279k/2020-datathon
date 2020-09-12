@@ -156,10 +156,6 @@ $(function() {
       return false;
     }
 
-    console.log(county);
-    console.log(town);
-    console.log(industry);
-
     var filteredTable;
     if (county !== '') {
       filteredTable = dataTable.columns(10).search(county);
@@ -187,16 +183,16 @@ $(function() {
 
     console.log(filteredDataSets.length);
 
-    if (layers.length !== 0) {
-      let layerGroup = L.layerGroup(layers);
-      layerGroup.clearLayers();
+    if (map) {
+      map.removeLayer(markers);
     }
 
     if (filteredDataSets.length !== 0) {
       for (let filteredDataSetsKey in filteredDataSets) {
-        var layer = L.marker(L.latLng(filteredDataSets[filteredDataSetsKey][13], filteredDataSets[filteredDataSetsKey][12])).addTo(map);
-        layers.push(layer);
+        var marker = L.marker(L.latLng(filteredDataSets[filteredDataSetsKey][13], filteredDataSets[filteredDataSetsKey][12])).addTo(map);
       }
+
+      markers.addLayer(marker);
     }
   });
 
@@ -205,15 +201,14 @@ $(function() {
 
     dataTable.search('').columns().search('').draw();
 
-    if (layers.length !== 0) {
-      let layerGroup = L.layerGroup(layers);
-      layerGroup.clearLayers();
+    if (map) {
+      map.removeLayer(markers);
     }
   });
 });
 
 /* instantiate and configure map */
-var layers = [];
+var markers = new L.FeatureGroup();
 var minZoom = 7;
 var maxZoom = 30;
 var initLat = 25.105497;
