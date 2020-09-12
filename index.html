@@ -192,13 +192,13 @@ $(function() {
     });
     map.remove();
     if (filteredDataSets.length !== 0) {
-      map = L.map('map').setView(L.latLng(filteredDataSets[0][13], filteredDataSets[0][12]), minZoom);
+      map = L.map('map').panto(L.latLng(filteredDataSets[0][13], filteredDataSets[0][12]), minZoom);
 
       for (let filteredDataSetsKey in filteredDataSets) {
         L.marker(L.latLng(filteredDataSets[filteredDataSetsKey][13], filteredDataSets[filteredDataSetsKey][12])).addTo(map);
       }
     } else {
-      map = L.map('map').setView(L.latLng(initLat, initLng), minZoom);
+      map = L.map('map').panto(L.latLng(initLat, initLng), minZoom);
     }
   });
 
@@ -206,6 +206,13 @@ $(function() {
     e.preventDefault = false;
 
     dataTable.search('').columns().search('').draw();
+
+    if (map) {
+      map.eachLayer(function (layer) {
+        layer.remove();
+      });
+      map = L.map('map').panto(L.latLng(initLat, initLng), minZoom);
+    }
   });
 });
 
