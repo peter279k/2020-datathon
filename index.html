@@ -187,13 +187,15 @@ $(function() {
 
     console.log(filteredDataSets.length);
 
-    map.eachLayer(function (layer) {
-      layer.remove();
-    });
+    if (layers.length !== 0) {
+      let layerGroup = L.layerGroup(layers);
+      layerGroup.clearLayers();
+    }
 
     if (filteredDataSets.length !== 0) {
       for (let filteredDataSetsKey in filteredDataSets) {
-        L.marker(L.latLng(filteredDataSets[filteredDataSetsKey][13], filteredDataSets[filteredDataSetsKey][12])).addTo(map);
+        var layer = L.marker(L.latLng(filteredDataSets[filteredDataSetsKey][13], filteredDataSets[filteredDataSetsKey][12])).addTo(map);
+        layers.push(layer);
       }
     }
   });
@@ -203,15 +205,15 @@ $(function() {
 
     dataTable.search('').columns().search('').draw();
 
-    if (map) {
-      map.eachLayer(function (layer) {
-        layer.remove();
-      });
+    if (layers.length !== 0) {
+      let layerGroup = L.layerGroup(layers);
+      layerGroup.clearLayers();
     }
   });
 });
 
 /* instantiate and configure map */
+var layers = [];
 var minZoom = 7;
 var maxZoom = 30;
 var initLat = 25.105497;
