@@ -150,6 +150,10 @@ $(function() {
     let town = $('#town').val();
     let industry = $('#industry').val();
 
+    if (county === '' && town === '' && industry === '') {
+      alert('請至少選擇一項條件進行篩選！');
+    }
+
     console.log(county);
     console.log(town);
     console.log(industry);
@@ -179,7 +183,7 @@ $(function() {
 
     let filteredDataSets = filteredTable.rows().data().toArray();
 
-    console.log(filteredDataSets);
+    console.log(filteredDataSets.length);
 
     if (filteredDataSets.length !== 0) {
       map.panTo(new L.latLng(filteredDataSets[0][13], filteredDataSets[0][12]), minZoom);
