@@ -152,6 +152,8 @@ $(function() {
 
     if (county === '' && town === '' && industry === '') {
       alert('請至少選擇一項條件進行篩選！');
+
+      return false;
     }
 
     console.log(county);
@@ -181,7 +183,7 @@ $(function() {
 
     filteredTable.draw();
 
-    let filteredDataSets = filteredTable.rows().data().toArray();
+    let filteredDataSets = filteredTable.cache('search').toArray();
 
     console.log(filteredDataSets.length);
 
