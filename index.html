@@ -189,10 +189,12 @@ $(function() {
 
     if (filteredDataSets.length !== 0) {
       for (let filteredDataSetsKey in filteredDataSets) {
-        var marker = L.marker(L.latLng(filteredDataSets[filteredDataSetsKey][13], filteredDataSets[filteredDataSetsKey][12])).addTo(map);
+        var marker = L.marker(L.latLng(filteredDataSets[filteredDataSetsKey][13], filteredDataSets[filteredDataSetsKey][12]));
         markers.addLayer(marker);
       }
     }
+
+    map.addLayer(markers);
   });
 
   $('#reset-filter').click(function (e) {
