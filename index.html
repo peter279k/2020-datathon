@@ -195,6 +195,8 @@ $(function() {
         }
         invoiceNumbers.push(filteredDataSets[filteredDataSetsKey][0]);
 
+        console.log(filteredDataSets[filteredDataSetsKey][13], filteredDataSets[filteredDataSetsKey][12]);
+
         var marker = L.marker(L.latLng(filteredDataSets[filteredDataSetsKey][13], filteredDataSets[filteredDataSetsKey][12]));
 
         marker.bindPopup(filteredDataSets[filteredDataSetsKey][6], {
