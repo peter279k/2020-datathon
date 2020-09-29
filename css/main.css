@@ -25,3 +25,7 @@ text {
 }
 
 a { cursor: pointer }
+
+body {
+    font-family: Arial, '微軟正黑體', sans-serif;
+}
